@@ -21,7 +21,15 @@ asciinema: true
 Besides using the API directly or clicking through the dashboard UI, you can also interact with Oakestra using the Command Line Interface.
 </span>
 
-{{< callout context="tip" title="Benefits of `oak-cli`" icon="outline/rocket">}} 
+{{< callout context="caution" title="Requirements" icon="outline/alert-triangle">}}
+  - You have a running Oakestra setup.
+  - You can access the APIs at `<IP_OF_CLUSTER_ORCHESTRATOR>:10000`
+{{< /callout >}}
+
+
+## The `oak-cli`
+
+{{< callout context="note" title="Benefits of `oak-cli`" icon="outline/rocket">}} 
 
 - Easy installation via `pip`
 - Native interface for the Oakestra APIs
@@ -82,12 +90,6 @@ For further information about the CLI configuration see the [CLI Configuration M
 
 
 ## Basic CLI Usage
-
-{{< callout context="caution" title="Requirements" icon="outline/alert-triangle">}}
-  - You have a running Oakestra setup.
-  - You can access the APIs at `<IP_OF_CLUSTER_ORCHESTRATOR>:10000`
-{{< /callout >}}
-
 The root command for the CLI is **oak**
 
 {{< callout context="note" title="Need Help?" icon="outline/info-circle" >}}

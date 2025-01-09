@@ -1,11 +1,11 @@
 ---
-title: "Federated Machine Learning"
-description: "Federated Learning via automated orchestration"
+title: "Customizing FLOps"
+description: "Explore how to customize FLOps' workflows"
 summary: ""
 date: 2023-09-07T16:06:50+02:00
 lastmod: 2023-09-07T16:06:50+02:00
 draft: false
-weight: 220
+weight: 380
 toc: false
 sidebar:
   collapsed: true
