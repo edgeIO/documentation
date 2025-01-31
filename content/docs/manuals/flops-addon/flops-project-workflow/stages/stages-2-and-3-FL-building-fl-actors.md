@@ -85,6 +85,6 @@ This demo shows this build process from the perspective of a priviledged CLI use
 <br>
 {{< link-card
   title="Want to know more about the image building process?"
-  description="Learn why and how container images are build in FLOps." 
+  description="Learn why and how container images are build in FLOps" 
   href="/docs/manuals/flops-addon/internals/image-building-process"
 >}}

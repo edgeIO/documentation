@@ -30,7 +30,7 @@ This is an ideal environment for FL because this layout supports privacy on a st
 Oakestra's lean open-source code base allows for easy extension, further development, and experimentation with FL features.
 
 ## FLOps Addon
-FLOps is an [Oakestra Addon](TODO) that enables streamlined and accelerated practical FL workflows through many of its automation features. 
+FLOps is an [Oakestra Addon](/docs/concepts/oakestra-extensions/addons/) that enables streamlined and accelerated practical FL workflows through many of its automation features. 
 
 {{< callout context="note" title="Designed for Change" icon="outline/target-arrow" >}}
   FLOps aims to be easily modifiable and extendable by developers and researchers.
@@ -86,7 +86,7 @@ FLOps is an [Oakestra Addon](TODO) that enables streamlined and accelerated prac
 
   ### mlflow
   [MLflow](https://mlflow.org/) is a mature open-source MLOps tool that powers the runtime observability and tracking features of FLOps.
-  MLflow augments and supports the entire ML lifecycle, from conception, to code and dependency archivation and unification, tracking and tagging ML models and artifacts, and re-redeployments. 
+  MLflow augments and supports the entire ML lifecycle, from conception, to code and dependency archivation and unification, tracking and tagging ML models and artifacts, and re-deployments. 
 
   ### Apache's 'Data Suite'
   FLOps works with real data on learner devices.
@@ -109,7 +109,7 @@ FLOps is an [Oakestra Addon](TODO) that enables streamlined and accelerated prac
 
 {{< details "**Convenient Installation & native CLI**" >}}
   FLOps can be easily set up by cloning its [repository](https://github.com/oakestra/addon-FLOps) and running the docker-compose file on the same machine as the Oakestra Root Orchestrator.
-  See the [FLOps Manuals](/docs/manuals/flops) for concrete instructions.
+  See the [FLOps Manuals](/docs/manuals/flops-addon/flops-overview/) for concrete instructions.
 
   The [Oakestra CLI](/docs/getting-started/deploy-app/with-the-cli/#the-oak-cli) supports a [set of commands](/docs/manuals/cli/features/flops-addon/#oak-addon-flops) to work with FLOps.
 {{< /details >}}

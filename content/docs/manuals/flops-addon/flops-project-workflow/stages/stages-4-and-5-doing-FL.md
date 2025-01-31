@@ -67,7 +67,7 @@ The FLOps manager undeploys and removes the image builder service.
 
 {{< link-card
   title="Want to know more about the image building process?"
-  description="Learn why and how container images are build in FLOps." 
+  description="Learn why and how container images are build in FLOps" 
   href="/docs/manuals/flops-addon/internals/image-building-process"
 >}}
 

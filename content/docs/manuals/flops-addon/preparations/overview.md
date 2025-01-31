@@ -16,6 +16,7 @@ seo:
 Most FLOps services can run on any of the orchestrated worker nodes.
 Building multi-platform container images and performing ML/FL model training on aggregated data requires extra considerations.
 To allow FLOps to work as intended, you have to ensure that at least one of your worker nodes can build images and collect data for training.
+You can use one node to handle both or two separate ones doing one task each.
 
 {{< link-card
   title="Image Building Preparation"

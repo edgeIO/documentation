@@ -52,7 +52,7 @@ seo:
 
 {{< link-card
   title="Image Building Process"
-  description="Learn why and how container images are build in FLOps." 
+  description="Learn why and how container images are build in FLOps" 
   href="/docs/manuals/flops-addon/internals/image-building-process"
 >}}
 
