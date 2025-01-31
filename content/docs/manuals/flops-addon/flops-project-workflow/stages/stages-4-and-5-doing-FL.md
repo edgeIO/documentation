@@ -59,7 +59,7 @@ The aggregator notifies the FLOps manager which undeploys and removed the FL act
 
 ### Observing FL Training via the GUI
 
-Instead of looking into rather cryptic service logs you can and should observe this training process via a sophisticated GUI.
+Instead of looking into service logs you can and should observe this training process via a sophisticated GUI.
 This GUI allows users to monitor, compare, store, export, share, and organize training runs, metrics, and trained models during training time and beyond.
 
 {{<light-dark-png "gui-experiments-view-small">}}
@@ -68,6 +68,9 @@ FLOps uses [MLflow](https://mlflow.org/) to power its observability and tracking
 The aggregator is augmented with mlflow to track its global training process after each training round.
 The learners are not using mlflow to maximize privacy and minimize introducing further backdoors for attacks.
 
+{{<light-dark-png "gui-experiments-view-metrics">}}
+
+{{<light-dark-png "gui-logged-artifacts">}}
 
 {{< link-card
   title="Want to know more about how FLOps uses MLflow for elevating its MLOps capabilities?"
