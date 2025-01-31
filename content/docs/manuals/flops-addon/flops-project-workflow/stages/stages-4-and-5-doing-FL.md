@@ -12,62 +12,65 @@ seo:
 asciinema: true
 ---
 
-The FLOps manager tries to lookup matching container images for learners and aggregaters.
-The manager checks for images in the FLOps image registry (*part of the management suite*) that match the ML repository that was part of the requested project SLA. 
-
-If a match was found there is no need to build redundant images and the project goes straight to stage 4.
-
 ## Stage 4: FL-Actors Deployment
 
-In case images for **FL Actors** *(learners & aggregators)* using the requested ML repository are missing the manager creates and deploys a single image-builder service.
-This buider service is exclusive to its originating project.
+The FL actors images stored in the FLOps image registry now get deployed on matching worker nodes.
+Thanks to its rather light-weight computations the aggregator service can be deployed on an arbitrary worker node whereas learner services can only be deployed on dedicated notes that have the `FLOps-learner` addon enabled.
+The aggregator image has a superset of the learner image dependencies thus pulling and deploying both actors take about the same amount of time.
+
+Each actor service needs some time to spin up properly and connect to one another.
+The learner services need to fetch and process their local training data before establishing a connection with their aggregator.
+
 
 ```bash
-  ╭─────────────────────┬──────────────────────────┬────────────────┬──────────────────┬──────────────────────────╮     
-  │ Service Name        │ Service ID               │ Instances      │ App Name         │ App ID                   │     
-  ├─────────────────────┼──────────────────────────┼────────────────┼──────────────────┼──────────────────────────┤     
-  │                     │                          │                │                  │                          │     
-  │ builder8266202cd6db │ 6761bf5e59461659a24b1199 │  0 RUNNING     │ projc3fd78f56b75 │ 6761bf5d59461659a24b1197 │      
-  │                     │                          │                │                  │                          │     
-  ╰─────────────────────┴──────────────────────────┴────────────────┴──────────────────┴──────────────────────────╯     
+╭──────────────────────┬──────────────────────────┬────────────────┬──────────────────┬──────────────────────────╮
+│ Service Name         │ Service ID               │ Instances      │ App Name         │ App ID                   │
+├──────────────────────┼──────────────────────────┼────────────────┼──────────────────┼──────────────────────────┤
+│                      │                          │                │                  │                          │
+│ observ11e3c5ca7c4c   │ 679cbbaeaf4c1923eb5df1b4 │  0 RUNNING     │ observatory      │ 679cbbadaf4c1923eb5df1b2 │
+│                      │                          │                │                  │                          │
+├──────────────────────┼──────────────────────────┼────────────────┼──────────────────┼──────────────────────────┤
+│                      │                          │                │                  │                          │
+│ trackinge3afed0047b0 │ 679cbbaeaf4c1923eb5df1b5 │  0 RUNNING     │ observatory      │ 679cbbadaf4c1923eb5df1b2 │
+│                      │                          │                │                  │                          │
+├──────────────────────┼──────────────────────────┼────────────────┼──────────────────┼──────────────────────────┤
+│                      │                          │                │                  │                          │
+│ aggr11e3c5ca7c4c     │ 679cbbaeaf4c1923eb5df1b6 │  0 RUNNING     │ projc911185f81c4 │ 679cbbaeaf4c1923eb5df1b3 │
+│                      │                          │                │                  │                          │
+├──────────────────────┼──────────────────────────┼────────────────┼──────────────────┼──────────────────────────┤
+│                      │                          │                │                  │                          │
+│                      │                          │  0 RUNNING     │                  │                          │
+│ flearner11e3c5ca7c4c │ 679cbbafaf4c1923eb5df1b7 │                │ projc911185f81c4 │ 679cbbaeaf4c1923eb5df1b3 │
+│                      │                          │  1 RUNNING     │                  │                          │
+│                      │                          │                │                  │                          │
+╰──────────────────────┴──────────────────────────┴────────────────┴──────────────────┴──────────────────────────╯
 ```
-
-{{< callout context="tip" title="*To build or not to build?*" icon="outline/hammer" >}}
-  Stage 2 is a distinct because:
-  - Deciding if new images need to be build requires querying the remote ML Git repository as well as the FLOps image registry.
-  - The image builder service can only run on worker nodes with the `image-builder` addon enabled.
-  - Deploying the large image builder service *(pulled size ~3GB)* can take time.
-{{< /callout >}}
 
 ## Stage 5: FL Training
 
-In stage 3 the deployed image-builder service builds the requested images for the learner and aggregator services.
+The actual FL training takes place during this stage.
+For our base-case scenario the processes are as described in the [FL Overview](/docs/concepts/flops/fl-basics/#federated-learning-overview).
+Because the base-case should be as fast as possible it only trains for 3 rounds.
+The following demo shows how a CLI user can inspect the running actors to observe the training rounds taking place.
+At the end the aggregator sends the oberserver service the final/best achieved trained model metrics inlcuding accuracy and loss.
+The aggregator notifies the FLOps manager which undeploys and removed the FL actors.
 
-{{< callout context="danger" title="Critical" icon="outline/alert-octagon" >}}
-  Building (multi-platform) images for ML/FL dynamically based on flexible user-provided repositories is a delicate and error prone business.
+{{< asciinema key="flops_fl_training" poster="0:12" idleTimeLimit="1.5" >}}
 
-  Building images can take up a significant part of the entire project duration - especially if training itself is lightweight *(fast / few rounds)*.
+### Observing FL Training via the GUI
 
-  ---
+Instead of looking into rather cryptic service logs you can and should observe this training process via a sophisticated GUI.
+This GUI allows users to monitor, compare, store, export, share, and organize training runs, metrics, and trained models during training time and beyond.
 
-  The only current way for FLOps to let you know that something went wrong during building is to send an error message to your project observer.
+{{<light-dark-png "gui-experiments-view-small">}}
 
-  Watch out for these observer logs - especially when working with new ML repositories for the first time. 
-{{< /callout >}}
+FLOps uses [MLflow](https://mlflow.org/) to power its observability and tracking features.
+The aggregator is augmented with mlflow to track its global training process after each training round.
+The learners are not using mlflow to maximize privacy and minimize introducing further backdoors for attacks.
 
-The image-builder service does the following:
-- Clones the requested ML Git repository
-- Checks the cloned repository if it satisfies the mandatory structural requirements 
-- Checks for potential dependency issues and tries to resolve them if possible
-- Builds the FL-Actor images
-- Pushes the build images to the FLOps image registry
-- Notifies the project observer and the FLOps manager about its success or possible errors
-
-The FLOps manager undeploys and removes the image builder service.
 
 {{< link-card
-  title="Want to know more about the image building process?"
-  description="Learn why and how container images are build in FLOps" 
-  href="/docs/manuals/flops-addon/internals/image-building-process"
+  title="Want to know more about how FLOps uses MLflow for elevating its MLOps capabilities?"
+  description="Learn how FLOps integrates MLflow into its architecture and workflows"
+  href="TODO"
 >}}
-

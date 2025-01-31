@@ -30,7 +30,7 @@ This demo shows the start of our base-case project:
 {{< asciinema key="flops_base_case_project_start" poster="0:08" idleTimeLimit="2" >}}
 
 After sending out the project request via the CLI, the following happens:
-- The FLOps manager swiftly responded, telling us that our request had been successful and that a new project had started running.
+- The FLOps manager swiftly responds, telling us that our request was successful and that a new project started running.
   ```bash
     Success: 'Init new FLOps project for SLA '~/oak_cli/addons/flops/projects/mnist_sklearn_small.json'
   ```
@@ -84,7 +84,7 @@ After sending out the project request via the CLI, the following happens:
 {{< /callout >}}
 
 {{< callout context="tip" title="*JOB'S DONE!*" icon="outline/coffee" >}}
-  Sending out the project request was the last manual step a FLOps user had to take.
+  Sending out the project request is the last manual step a FLOps user has to take.
   From now on, everything is automatically done for you by FLOps.
 
   Now relax, sit back, and continue reading the following stages to understand what FLOps is doing - and how you can use the trained model/inference server.

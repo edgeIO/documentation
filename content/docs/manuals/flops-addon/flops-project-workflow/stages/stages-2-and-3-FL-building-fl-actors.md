@@ -33,7 +33,7 @@ This builder service is exclusive to its originating project.
 ```
 
 {{< callout context="tip" title="*To build or not to build?*" icon="outline/hammer" >}}
-  Stage 2 is a distinct because:
+  Stage 2 is distinct because:
   - Deciding if new images need to be built requires querying the remote ML Git repository and the FLOps image registry.
   - The image-builder service can only run on worker nodes with the `image-builder` addon enabled.
   - Deploying the large image builder service *(pulled size ~3GB)* can take time.
