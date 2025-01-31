@@ -43,7 +43,7 @@ On the worker nodes where you wish to do the image building, do the following:
 
 {{< link-card
   title="Curious about the Image Building Process?"
-  description="Explore why and how container images are build in FLOps." 
+  description="Explore why and how container images are build in FLOps" 
   href="/docs/manuals/flops-addon/internals/image-building-process"
   target="_blank"
 >}}

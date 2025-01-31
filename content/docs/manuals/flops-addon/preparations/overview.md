@@ -16,7 +16,7 @@ seo:
 Most FLOps services can run on any of the orchestrated worker nodes.
 Building multi-platform container images and performing ML/FL model training on aggregated data requires extra considerations.
 To allow FLOps to work as intended, you have to ensure that at least one of your worker nodes can build images and collect data for training.
-You can use one node to handle both or two separate ones doing one task each.
+You can use one node to handle both tasks or two separate nodes doing one task each.
 
 {{< link-card
   title="Image Building Preparation"
@@ -38,6 +38,25 @@ Clone the [FLOps repository](https://github.com/oakestra/addon-FLOps) onto the s
 ```bash
 git clone git@github.com:oakestra/addon-FLOps.git 
 ```
+
+Set the required environment variables - e.g. by adding them to your `/etc/bash.bashrc` file:
+```bash
+export SYSTEM_MANAGER_IP=<IP-A>
+export FLOPS_MANAGER_IP=<IP-B>
+export FLOPS_MQTT_BROKER_IP=<IP-C>
+export FLOPS_IMAGE_REGISTRY_IP=<IP-D>
+export ARTIFACT_STORE_IP=<IP-E>
+export BACKEND_STORE_IP=<IP-F>
+```
+
+{{< callout context="note" title="Hosting location for the FLOps managment suite" icon="outline/info-circle" >}}
+  Currently, FLOps is intended to be co-hosted on the same node as your Oakestra control plane.
+
+  This means you should use the same public IP for all variables above.
+
+  We intend to split this up to allow hosting FLOps management components on different machines for better scalability.
+{{< /callout >}}
+
 
 Start the management docker-compose:
 ```bash
